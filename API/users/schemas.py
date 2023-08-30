@@ -2,7 +2,7 @@ import datetime
 import uuid
 from typing import List
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 class CreateUserSchema(BaseModel):
@@ -12,7 +12,6 @@ class CreateUserSchema(BaseModel):
 
 
 class SuccessUserSchema(BaseModel):
-    # id: uuid.UUID = Field(default_factory=uuid.uuid4)
     id: uuid.UUID
 
 
@@ -24,3 +23,11 @@ class BaseUserSchema(SuccessUserSchema, BaseModel):
 
 class UsersList(BaseModel):
     users: List[BaseUserSchema]
+
+
+class SuccessUpdateUserSchema(SuccessUserSchema):
+    pass
+
+
+class SuccessDeleteUserSchema(SuccessUserSchema):
+    pass

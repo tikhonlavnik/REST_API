@@ -1,19 +1,25 @@
-from typing import Type, Union, List
+import uuid
+from typing import List, Type
 
 from pydantic import BaseModel
 
 from API import db
+import logging
+
+
+logging.basicConfig(level=logging.ERROR, filename="logs.log", filemode="a",
+                    format="%(asctime)s %(levelname)s %(message)s")
 
 
 class DataBase:
     """ Class for db sessions which can work with any model """
     @staticmethod
-    def create(ModelClass: Type[BaseModel], body: BaseModel) -> Type["ModelClass"] | bool:
+    def create(ModelClass: Type["ModelClass"], body: BaseModel) -> Type["ModelClass"] | bool:
         """
         Create any object in necessary model
 
-        :param ModelClass: Type[BaseModel] necessary model
-        :param body: object of
+        :param ModelClass: ModelClass necessary model
+        :param body: object of Type[BaseModel]
         :return: if success - ModelClass, else False
         """
         try:
@@ -21,43 +27,46 @@ class DataBase:
             db.session.add(obj)
             db.session.commit()
             return obj
-        except:
+        except Exception as exc:
+            logging.error(exc, exc_info=True)
             db.session.rollback()
             return False
 
     @staticmethod
-    def get(ModelClass: Type[BaseModel], object_id: int) -> Type["ModelClass"] | bool:
+    def get(ModelClass: Type["ModelClass"], object_id: uuid.UUID) -> Type["ModelClass"] | bool:
         """
         Get one row by id
 
-        :param ModelClass: Type[BaseModel] necessary model
+        :param ModelClass: ModelClass necessary model
         :param object_id: id of row in db
         :return: if success - ModelClass, else False
         """
         try:
             return ModelClass.query.get(object_id)
-        except:
+        except Exception as exc:
+            logging.error(exc, exc_info=True)
             return False
 
     @staticmethod
-    def get_all(ModelClass: Type[BaseModel]) -> List["ModelClass"] | bool:
+    def get_all(ModelClass: Type["ModelClass"]) -> List[Type["ModelClass"]] | bool:
         """
         Get all rows of model
 
-        :param ModelClass: Type[BaseModel] necessary model
+        :param ModelClass: ModelClass necessary model
         :return: if success - List[ModelClass], else False
         """
         try:
             return ModelClass.query.all()
-        except:
+        except Exception as exc:
+            logging.error(exc, exc_info=True)
             return False
 
     @staticmethod
-    def update(ModelClass: Type[BaseModel], body: dict, object_id: int) -> Type["ModelClass"] | bool:
+    def update(ModelClass: Type["ModelClass"], body: dict, object_id: uuid.UUID) -> Type["ModelClass"] | bool:
         """
         Update row by id
 
-        :param ModelClass: Type[BaseModel] necessary model
+        :param ModelClass: ModelClass necessary model
         :param body: object of Type[BaseModel]
         :param object_id: id of row in db
         :return: if success - ModelClass, else False
@@ -71,12 +80,20 @@ class DataBase:
                 setattr(obj, key, value)
             db.session.commit()
             return obj
-        except:
+        except Exception as exc:
+            logging.error(exc, exc_info=True)
             db.session.rollback()
             return False
 
     @staticmethod
-    def delete(ModelClass: Type[BaseModel], object_id: int) -> Type["ModelClass"] | bool:
+    def delete(ModelClass: Type["ModelClass"], object_id: uuid.UUID) -> Type["ModelClass"] | bool:
+        """
+        Delete row by id
+
+        :param ModelClass: ModelClass necessary model
+        :param object_id: id of row in db
+        :return: if success - ModelClass, else False
+        """
         try:
             obj = ModelClass.query.get(object_id)
             if not obj:
@@ -85,6 +102,7 @@ class DataBase:
             db.session.delete(obj)
             db.session.commit()
             return obj
-        except:
+        except Exception as exc:
+            logging.error(exc, exc_info=True)
             db.session.rollback()
             return False
