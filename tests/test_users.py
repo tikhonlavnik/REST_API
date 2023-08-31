@@ -6,13 +6,14 @@ from tests.ustils_tests import TestData
 
 
 class TestUsers:
-    """ Test users module """
+    """Test users module"""
+
     @staticmethod
     @pytest.fixture
     def create_test_record():
         body = TestData.user_body
         response = requests.post(f"{TestData.url_path}/api/users", json=body).json()
-        yield response.get('id')
+        yield response.get("id")
         requests.delete(f"{TestData.url_path}/api/users/{response.get('id')}")
 
     @staticmethod

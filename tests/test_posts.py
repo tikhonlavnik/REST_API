@@ -8,14 +8,15 @@ from test_users import TestUsers
 user_create = TestUsers.create_test_record
 
 
-class TestPosts():
-    """ Test posts module """
+class TestPosts:
+    """Test posts module"""
+
     @staticmethod
     @pytest.fixture
     def create_post_user():
         body = TestData.user_body
         response = requests.post(f"{TestData.url_path}/api/users", json=body).json()
-        yield response.get('id')
+        yield response.get("id")
         requests.delete(f"{TestData.url_path}/api/users/{response.get('id')}")
 
     @staticmethod
@@ -23,12 +24,12 @@ class TestPosts():
     def create_test_record():
         body = TestData.user_body
         response = requests.post(f"{TestData.url_path}/api/users", json=body).json()
-        user_id = response.get('id')
+        user_id = response.get("id")
 
         body = TestData.post_body
         body["author_id"] = user_id
         response = requests.post(f"{TestData.url_path}/api/posts", json=body).json()
-        post_id = response.get('id')
+        post_id = response.get("id")
 
         yield post_id
 
@@ -71,5 +72,7 @@ class TestPosts():
         body = TestData.post_body
         body["author_id"] = create_post_user
         post = requests.post(f"{TestData.url_path}/api/posts", json=body)
-        response = requests.delete(f"{TestData.url_path}/api/posts/{post.json().get('id')}")
+        response = requests.delete(
+            f"{TestData.url_path}/api/posts/{post.json().get('id')}"
+        )
         assert response.status_code == 200

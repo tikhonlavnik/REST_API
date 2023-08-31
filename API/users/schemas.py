@@ -11,11 +11,11 @@ class CreateUserSchema(BaseModel):
     birthday: datetime.date
 
 
-class SuccessUserSchema(BaseModel):
+class UserSchema(BaseModel):
     id: uuid.UUID
 
 
-class BaseUserSchema(SuccessUserSchema, BaseModel):
+class BaseUserSchema(UserSchema, BaseModel):
     username: str
     birthday: datetime.date
     time_created: datetime.datetime
@@ -25,9 +25,9 @@ class UsersList(BaseModel):
     users: List[BaseUserSchema]
 
 
-class SuccessUpdateUserSchema(SuccessUserSchema):
+class SuccessUpdateUserSchema(UserSchema):
     pass
 
 
-class SuccessDeleteUserSchema(SuccessUserSchema):
+class SuccessDeleteUserSchema(UserSchema):
     pass

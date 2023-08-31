@@ -11,6 +11,7 @@ from utils.database_utils import DataBase
 
 class Users(db.Model):
     """Model for users"""
+
     __tablename__ = "users"
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
     username = db.Column(db.String, nullable=False)

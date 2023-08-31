@@ -11,6 +11,7 @@ from utils.database_utils import DataBase
 
 class Posts(db.Model):
     """Model for posts"""
+
     __tablename__ = "posts"
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4())
     title = db.Column(db.String, nullable=False)
@@ -39,5 +40,3 @@ class Posts(db.Model):
     @classmethod
     def delete(cls, post_id: uuid) -> Type["Posts"] | bool:
         return DataBase.delete(cls, post_id)
-
-    

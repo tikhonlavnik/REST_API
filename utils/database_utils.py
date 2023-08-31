@@ -7,14 +7,21 @@ from API import db
 import logging
 
 
-logging.basicConfig(level=logging.ERROR, filename="logs.log", filemode="a",
-                    format="%(asctime)s %(levelname)s %(message)s")
+logging.basicConfig(
+    level=logging.ERROR,
+    filename="logs.log",
+    filemode="a",
+    format="%(asctime)s %(levelname)s %(message)s",
+)
 
 
 class DataBase:
-    """ Class for db sessions which can work with any model """
+    """Class for db sessions which can work with any model"""
+
     @staticmethod
-    def create(ModelClass: Type["ModelClass"], body: BaseModel) -> Type["ModelClass"] | bool:
+    def create(
+        ModelClass: Type["ModelClass"], body: BaseModel
+    ) -> Type["ModelClass"] | bool:
         """
         Create any object in necessary model
 
@@ -33,7 +40,9 @@ class DataBase:
             return False
 
     @staticmethod
-    def get(ModelClass: Type["ModelClass"], object_id: uuid.UUID) -> Type["ModelClass"] | bool:
+    def get(
+        ModelClass: Type["ModelClass"], object_id: uuid.UUID
+    ) -> Type["ModelClass"] | bool:
         """
         Get one row by id
 
@@ -62,7 +71,9 @@ class DataBase:
             return False
 
     @staticmethod
-    def update(ModelClass: Type["ModelClass"], body: dict, object_id: uuid.UUID) -> Type["ModelClass"] | bool:
+    def update(
+        ModelClass: Type["ModelClass"], body: dict, object_id: uuid.UUID
+    ) -> Type["ModelClass"] | bool:
         """
         Update row by id
 
@@ -86,7 +97,9 @@ class DataBase:
             return False
 
     @staticmethod
-    def delete(ModelClass: Type["ModelClass"], object_id: uuid.UUID) -> Type["ModelClass"] | bool:
+    def delete(
+        ModelClass: Type["ModelClass"], object_id: uuid.UUID
+    ) -> Type["ModelClass"] | bool:
         """
         Delete row by id
 
