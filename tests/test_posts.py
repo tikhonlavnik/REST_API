@@ -8,7 +8,8 @@ from test_users import TestUsers
 user_create = TestUsers.create_test_record
 
 
-class TestPosts:
+class TestPosts():
+    """ Test posts module """
     @staticmethod
     @pytest.fixture
     def create_post_user():

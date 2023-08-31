@@ -6,6 +6,7 @@ from tests.ustils_tests import TestData
 
 
 class TestUsers:
+    """ Test users module """
     @staticmethod
     @pytest.fixture
     def create_test_record():

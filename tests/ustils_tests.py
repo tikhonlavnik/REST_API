@@ -1,10 +1,13 @@
 from faker import Faker
 
+from config import Config
+
 faker = Faker()
 faker.seed_instance(4321)
 
 
 class TestData:
+    """ Class contains all necessary data for tests """
     url_path = "http://localhost:5000"
 
     # for users table

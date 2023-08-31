@@ -1,2 +1,3 @@
 SQL="SQL_PATH"
 SECRET_KEY="YOUR_KEY"
+DEFAULT_URL_PATH="http://localhost:5000"

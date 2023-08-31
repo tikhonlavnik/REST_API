@@ -8,3 +8,4 @@ class Config:
     SQL = env.get("SQL")
     SQLALCHEMY_DATABASE_URI = env.get("SQL")
     DEBUG = True
+    DEFAULT_URL_PATH = env.get("DEFAULT_URL_PATH")
