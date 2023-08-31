@@ -8,7 +8,7 @@ from API.users.schemas import (
     BaseUserSchema,
     SuccessUpdateUserSchema, SuccessDeleteUserSchema,
 )
-from utils.database_utils import DataBase
+
 from flask_pydantic import validate
 
 from utils.serializers import Serializer
@@ -37,7 +37,7 @@ def get_user(user_id: uuid.UUID) -> tuple[Response, int] | tuple[BaseUserSchema,
 
 @users_api.route("/api/users", methods=["GET"])
 def get_all_users() -> tuple[Response, int] | tuple[list[dict], int]:
-    users = DataBase.get_all(Users)
+    users = Users.get_all()
     if not users:
         return jsonify(False), 404
     return [BaseUserSchema(**Serializer.to_dict(obj)).model_dump() for obj in users], 200

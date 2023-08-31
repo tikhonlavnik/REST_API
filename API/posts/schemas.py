@@ -1,16 +1,36 @@
 import datetime
 import uuid
+from typing import List
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
-class BasePostSchema(BaseModel):
+class CreatePostSchema(BaseModel):
     title: str
     description: str
-    author_id: int
+    author_id: uuid.UUID
 
 
 class SuccessPostSchema(BaseModel):
-    # id: uuid.UUID = Field(default_factory=uuid.uuid4)
-    id: str
+    id: uuid.UUID
 
+
+class BasePostSchema(BaseModel):
+    id: uuid.UUID
+    title: str
+    description: str
+    author_id: uuid.UUID
+    time_created: datetime.datetime
+    time_updated: datetime.datetime
+
+
+class PostsList(BaseModel):
+    users: List[BasePostSchema]
+
+
+class SuccessUpdatePostSchema(SuccessPostSchema):
+    pass
+
+
+class SuccessDeletePostSchema(SuccessPostSchema):
+    pass

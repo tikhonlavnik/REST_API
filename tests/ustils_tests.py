@@ -7,6 +7,8 @@ faker.seed_instance(4321)
 class TestData:
     url_path = "http://localhost:5000"
 
+    # for users table
+
     user_get_schema = {
         "type": "object",
         "properties": {
@@ -18,13 +20,37 @@ class TestData:
         "required": ["id", "username", "birthday", "time_created"]
     }
 
-    body = {
+    user_body = {
         "username": faker.name(),
         "password": faker.password(),
         "birthday": faker.date()
     }
 
-    update_body = {
+    user_update_body = {
         "username": faker.name()
+    }
+
+    # for posts table
+
+    post_get_schema = {
+        "type": "object",
+        "properties": {
+            "id": {"type": "string"},
+            "title": {"type": "string"},
+            "description": {"type": "string"},
+            "author_id": {"type": "string"},
+            "time_created": {"type": "string", "format": "date-time"},
+            "time_updated": {"type": "string", "format": "date-time"}
+        },
+        "required": ["id", "title", "description", "author_id", "time_created", "time_updated"]
+    }
+
+    post_body = {
+        "title": faker.name(),
+        "description": faker.text(),
+    }
+
+    post_update_body = {
+        "title": faker.name()
     }
 
