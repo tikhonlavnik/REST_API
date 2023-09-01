@@ -1,5 +1,4 @@
 <h2 align="center">REST API Flask</h2>
-<hr />
 <h3><b>Description</b></h3>
 <h4>Simple API which can execute CRUD
 methods for users and their posts</h4>
